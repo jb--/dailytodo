@@ -1,8 +1,8 @@
 {
   "name": "dailytodo",
   "displayName": "Daily Todo List",
-  "description": "Creates a new entry in a Markdown diary",
-  "version": "0.0.4",
+  "description": "Makes your markdown files a todo list.",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.81.0"
   },
@@ -39,5 +39,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jb--/dailytodo"
-  }
+  },
+  "icon": "docs/icon128x128.png"
 }
