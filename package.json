@@ -2,6 +2,7 @@
   "name": "dailytodo",
   "displayName": "Daily Todo List",
   "description": "Makes your markdown files a todo list.",
+  "publisher": "DrJrgBartnick",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.81.0"
