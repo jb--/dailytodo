@@ -2,24 +2,25 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
     function handleDocument(document: vscode.TextDocument) {
-        console.log("handling document");
         if (document.languageId === 'markdown' && documentIsTodoList(document)) {
             addDiaryEntryIfNotFound(document);
         }
-      }
-    
-      function handleEditor(editor: vscode.TextEditor | undefined) {
-        console.log("handling editor");
+    }
+
+    function handleEditor(editor: vscode.TextEditor | undefined) {
         if (editor) {
-          handleDocument(editor.document);
+            handleDocument(editor.document);
         }
-      }
-      context.subscriptions.push(
-          vscode.workspace.onDidOpenTextDocument(handleDocument)
-      );
-      context.subscriptions.push(
-          vscode.window.onDidChangeActiveTextEditor(handleEditor)
-      );
+    }
+    
+    context.subscriptions.push(
+        vscode.workspace.onDidOpenTextDocument(handleDocument)
+    );
+    
+    context.subscriptions.push(
+        vscode.window.onDidChangeActiveTextEditor(handleEditor)
+    );
+
     const linkProvider = new CheckboxDocumentLinkProvider();
     context.subscriptions.push(vscode.languages.registerDocumentLinkProvider({ language: 'markdown' }, linkProvider));
 
