@@ -1,6 +1,6 @@
 {
-  "name": "diary-creator",
-  "displayName": "Diary Creator",
+  "name": "dailytodo",
+  "displayName": "Daily Todo List",
   "description": "Creates a new entry in a Markdown diary",
   "version": "0.0.4",
   "engines": {
