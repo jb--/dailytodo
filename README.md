@@ -1,4 +1,4 @@
-# ![Logo](docs/todo_list_icon.png) Daily Todo List
+# <img src="docs/todo_list_icon.png" alt="Daily Todo List logo" width="50px" style="vertical-align:middle"> Daily Todo List
 
 **Yet another VS Code extension for a todo list.**
 
@@ -21,6 +21,4 @@ Add the text below to the top of your markdown file.
 <!-- DOCTYPE: DAILY-TODO -->
 ```
 
-
 Then the extension will ensure you have a todo list for every day you open the file.
-
