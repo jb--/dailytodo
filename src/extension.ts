@@ -16,23 +16,15 @@ export function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  function handleWindow(windowState: vscode.WindowState) {
-    console.log("window state", windowState);
-    if (windowState.focused) {
-      console.log("window focused");
-      let editor = vscode.window.activeTextEditor;
-      if (editor) {
-        handleEditor(editor);
-      }
-    }
+  let editor = vscode.window.activeTextEditor;
+  if (editor) {
+    handleDocument(editor.document);
   }
 
   let onOpen = vscode.workspace.onDidOpenTextDocument(handleDocument);
   let onChange = vscode.window.onDidChangeActiveTextEditor(handleEditor);
-  let onWindow = vscode.window.onDidChangeWindowState(handleWindow);
   context.subscriptions.push(onOpen);
   context.subscriptions.push(onChange);
-  context.subscriptions.push(onWindow);
 
   const linkProvider = new CheckboxDocumentLinkProvider();
   context.subscriptions.push(
@@ -173,4 +165,4 @@ class CheckboxDocumentLinkProvider implements vscode.DocumentLinkProvider {
   }
 }
 
-export function deactivate() {}
+export function deactivate() { }
