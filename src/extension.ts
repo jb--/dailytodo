@@ -113,14 +113,14 @@ function determineLinePosition(document: vscode.TextDocument): number {
   // where the number in the brackets is a variable that is added to the return value and defaults to 1 if the brackets are not given
   // and return the line number of the next line
 
-  const regex = /<!-- *DAILY-TODO-LIST *(\((\d+)\))? *-->/;
+  const regex = /<!-- *DAILY-TODO-LIST *(\( *(-?\d+) *\))? *-->/;
 
   for (let line = 0; line < document.lineCount; line++) {
     const lineText = document.lineAt(line).text;
     const match = regex.exec(lineText);
     if (match) {
       const lineNumber = match[2] ? parseInt(match[2]) : 1;
-      return line + lineNumber;
+      return Math.max(1, line + lineNumber);
     }
   }
   return 3;
