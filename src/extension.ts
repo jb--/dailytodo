@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 
+
 export function activate(context: vscode.ExtensionContext) {
+    console.log("Activating extension for context", context)
     function handleDocument(document: vscode.TextDocument) {
         if (document.languageId === 'markdown' && documentIsTodoList(document)) {
             addDiaryEntryIfNotFound(document);
@@ -8,18 +10,31 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function handleEditor(editor: vscode.TextEditor | undefined) {
+        console.log('handleEditor', editor)
         if (editor) {
+            console.log("found editor with document", editor.document)
             handleDocument(editor.document);
         }
     }
-    
-    context.subscriptions.push(
-        vscode.workspace.onDidOpenTextDocument(handleDocument)
-    );
-    
-    context.subscriptions.push(
-        vscode.window.onDidChangeActiveTextEditor(handleEditor)
-    );
+
+    function handleWindow(windowState: vscode.WindowState) {
+        console.log('window state', windowState);
+        if (windowState.focused) {
+            console.log("window focused");
+            let editor = vscode.window.activeTextEditor;
+            if (editor) {
+                handleEditor(editor);
+            }
+        }
+    };
+
+    let onOpen = vscode.workspace.onDidOpenTextDocument(handleDocument);
+    let onChange = vscode.window.onDidChangeActiveTextEditor(handleEditor)
+    let onWindow = vscode.window.onDidChangeWindowState(handleWindow);
+    context.subscriptions.push(onOpen);
+    context.subscriptions.push(onChange);
+    context.subscriptions.push(onWindow);
+
 
     const linkProvider = new CheckboxDocumentLinkProvider();
     context.subscriptions.push(vscode.languages.registerDocumentLinkProvider({ language: 'markdown' }, linkProvider));
