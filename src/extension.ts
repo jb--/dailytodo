@@ -108,6 +108,24 @@ function documentIsTodoList(document: vscode.TextDocument): boolean {
   return firstLine.startsWith("<!-- DOCTYPE: DAILY-TODO -->");
 }
 
+function determineLinePosition(document: vscode.TextDocument): number {
+  // search the document for a line that contains "<!-- DAILY-TODO-LIST (7) -->"
+  // where the number in the brackets is a variable that is added to the return value and defaults to 1 if the brackets are not given
+  // and return the line number of the next line
+
+  const regex = /<!-- *DAILY-TODO-LIST *(\((\d+)\))? *-->/;
+
+  for (let line = 0; line < document.lineCount; line++) {
+    const lineText = document.lineAt(line).text;
+    const match = regex.exec(lineText);
+    if (match) {
+      const lineNumber = match[2] ? parseInt(match[2]) : 1;
+      return line + lineNumber;
+    }
+  }
+  return 3;
+}
+
 async function addDiaryEntryIfNotFound(document: vscode.TextDocument) {
   const currentDate = getCurrentDate();
   const header = `## ${currentDate}`;
@@ -115,10 +133,14 @@ async function addDiaryEntryIfNotFound(document: vscode.TextDocument) {
 
   if (!content.includes(header)) {
     const newEntry = `${header}\n\n- [ ] \n\n`;
-
+    const linePosition = determineLinePosition(document);
     // Add new diary entry
     const editEntry = new vscode.WorkspaceEdit();
-    editEntry.insert(document.uri, new vscode.Position(3, 0), newEntry);
+    editEntry.insert(
+      document.uri,
+      new vscode.Position(linePosition, 0),
+      newEntry,
+    );
     await vscode.workspace.applyEdit(editEntry);
   }
 }
