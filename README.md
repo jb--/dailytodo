@@ -4,7 +4,7 @@
 
 ## Features
 
-- Clickable todo list items
+- Clickable markdown checkboxes
 - Daily updated entries for your todo list
 
 ## Development
@@ -17,8 +17,8 @@
 
 Add the text below to the top of your markdown file.
 
-```
+```markdown
 <!-- DOCTYPE: DAILY-TODO -->
 ```
 
-Then the extension will ensure you have a todo list for every day you open the file.
+Then the extension will start a todo list for every day you open the file.
