@@ -2,7 +2,10 @@
 
 **Yet another VS Code extension for a todo list.**
 
+![dailytodopreview](https://github.com/jb--/dailytodo/assets/8600115/a8607674-f74c-4a60-9814-66f215dec844)
+
 ## Features
+
 
 The Daily Todo List extension provides the following features:
 
