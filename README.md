@@ -102,4 +102,6 @@ This means that you can change the order of how your todo-list will grow over ti
 
 - `npm install`
 - `vsce package`
-- `code --install-extension daily-todo-list-0.0.1.vsix`
+- `code --install-extension daily-todo-list-<CURRENT_VERSION>.vsix`
+
+Publish via `npm run deploy` (requires personal access token).
